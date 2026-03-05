@@ -1,0 +1,54 @@
+name: Build and Release JAR
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build plugin JAR
+        run: mvn -B clean package
+
+      - name: Locate release JAR
+        id: jar
+        run: |
+          JAR_PATH=$(find target -maxdepth 1 -type f -name '*.jar' ! -name 'original-*.jar' | head -n 1)
+          if [ -z "$JAR_PATH" ]; then
+            echo "No JAR found in target/"
+            exit 1
+          fi
+          echo "path=$JAR_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: donutparticles-jar
+          path: ${{ steps.jar.outputs.path }}
+
+      - name: Upload JAR to GitHub Release
+        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name || github.ref_name }}
+          files: ${{ steps.jar.outputs.path }}
+          generate_release_notes: true
