@@ -7,7 +7,7 @@ import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.particle.type.ParticleType;
 import com.github.retrooper.packetevents.protocol.particle.type.ParticleTypes;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWorldParticles;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerParticle;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -37,7 +37,7 @@ public class ParticlePacketListener extends PacketListenerAbstract {
         }
 
         PlayerSettings settings = plugin.getSettingsManager().getOrCreate(playerUuid);
-        WrapperPlayServerWorldParticles wrapper = new WrapperPlayServerWorldParticles(event);
+        WrapperPlayServerParticle wrapper = new WrapperPlayServerParticle(event);
         ParticleType<?> type = wrapper.getParticle().getType();
 
         if (!settings.isExplosionParticles() && (type == ParticleTypes.EXPLOSION || type == ParticleTypes.EXPLOSION_EMITTER)) {
