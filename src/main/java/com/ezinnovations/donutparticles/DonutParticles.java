@@ -6,7 +6,7 @@ import com.ezinnovations.donutparticles.command.TotemCommand;
 import com.ezinnovations.donutparticles.hook.PAPIExpansion;
 import com.ezinnovations.donutparticles.listener.ParticlePacketListener;
 import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
+import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
