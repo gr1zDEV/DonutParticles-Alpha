@@ -1,0 +1,46 @@
+name: DonutParticles
+version: '${project.version}'
+main: com.ezinnovations.donutparticles.DonutParticles
+api-version: '1.21'
+folia-supported: true
+prefix: DonutParticles
+description: Toggle explosion and totem particles per-player via packet interception
+authors:
+  - EzInnovations
+website: https://github.com/EzInnovations/DonutParticles
+
+softdepend:
+  - packetevents
+  - PlaceholderAPI
+  - ProtocolLib
+  - ProtocolSupport
+  - ViaVersion
+  - ViaBackwards
+  - ViaRewind
+  - Geyser-Spigot
+
+commands:
+  explode:
+    description: Toggle explosion particles
+    usage: /<command> toggle
+    permission: donutparticles.explode.toggle
+  totem:
+    description: Toggle totem particles
+    usage: /<command> toggle
+    permission: donutparticles.totem.toggle
+  donutparticles:
+    description: DonutParticles admin commands
+    usage: /<command> <explode|totem> <on|off> <player>
+    permission: donutparticles.admin
+    aliases: [dp]
+
+permissions:
+  donutparticles.explode.toggle:
+    description: Toggle own explosion particles
+    default: true
+  donutparticles.totem.toggle:
+    description: Toggle own totem particles
+    default: true
+  donutparticles.admin:
+    description: Admin control over other players particle settings
+    default: op
