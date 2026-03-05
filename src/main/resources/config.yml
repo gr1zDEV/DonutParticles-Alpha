@@ -1,0 +1,25 @@
+# DonutParticles Configuration
+
+# Messages (MiniMessage format)
+messages:
+  explosion-enabled: "<green>Explosion particles <bold>enabled</bold>."
+  explosion-disabled: "<red>Explosion particles <bold>disabled</bold>."
+  totem-enabled: "<green>Totem particles <bold>enabled</bold>."
+  totem-disabled: "<red>Totem particles <bold>disabled</bold>."
+  admin-explosion-enabled: "<green>Explosion particles <bold>enabled</bold> for <white>{player}</white>."
+  admin-explosion-disabled: "<red>Explosion particles <bold>disabled</bold> for <white>{player}</white>."
+  admin-totem-enabled: "<green>Totem particles <bold>enabled</bold> for <white>{player}</white>."
+  admin-totem-disabled: "<red>Totem particles <bold>disabled</bold> for <white>{player}</white>."
+  no-permission: "<red>You don't have permission to do that."
+  player-not-found: "<red>Player <white>{player}</white> not found."
+  reload-success: "<green>DonutParticles config reloaded."
+  console-only-admin: "<red>Use /donutparticles for admin commands from console."
+  player-only: "<red>This command can only be used by players."
+
+# Auto-save interval in seconds
+auto-save-interval: 300
+
+# Default settings for new players
+defaults:
+  explosion-particles: true
+  totem-particles: true
