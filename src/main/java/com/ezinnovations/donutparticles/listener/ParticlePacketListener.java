@@ -5,13 +5,12 @@ import com.ezinnovations.donutparticles.PlayerSettings;
 import com.github.retrooper.packetevents.event.PacketListenerAbstract;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import com.github.retrooper.packetevents.protocol.particle.Particle;
 import com.github.retrooper.packetevents.protocol.particle.type.ParticleType;
 import com.github.retrooper.packetevents.protocol.particle.type.ParticleTypes;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWorldParticles;
-import org.bukkit.Bukkit;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerParticle;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
 
 public class ParticlePacketListener extends PacketListenerAbstract {
     private final DonutParticles plugin;
@@ -22,23 +21,19 @@ public class ParticlePacketListener extends PacketListenerAbstract {
 
     @Override
     public void onPacketSend(PacketSendEvent event) {
-        if (event.getPacketType() != PacketType.Play.Server.WORLD_PARTICLES) {
+        if (event.getPacketType() != PacketType.Play.Server.PARTICLE) {
             return;
         }
 
-        UUID playerUuid = event.getUser().getUUID();
-        if (playerUuid == null) {
-            return;
-        }
-
-        Player player = Bukkit.getPlayer(playerUuid);
+        Player player = (Player) event.getPlayer();
         if (player == null) {
             return;
         }
 
-        PlayerSettings settings = plugin.getSettingsManager().getOrCreate(playerUuid);
-        WrapperPlayServerWorldParticles wrapper = new WrapperPlayServerWorldParticles(event);
-        ParticleType<?> type = wrapper.getParticle().getType();
+        PlayerSettings settings = plugin.getSettingsManager().getOrCreate(player.getUniqueId());
+        WrapperPlayServerParticle wrapper = new WrapperPlayServerParticle(event);
+        Particle<?> particle = wrapper.getParticle();
+        ParticleType<?> type = particle.getType();
 
         if (!settings.isExplosionParticles() && (type == ParticleTypes.EXPLOSION || type == ParticleTypes.EXPLOSION_EMITTER)) {
             event.setCancelled(true);
